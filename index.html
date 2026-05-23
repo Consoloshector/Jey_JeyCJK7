@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Riddle Purse - Master Final Edition</title>
+    <title>The Riddle Purse - Master 4-Stage Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,7 +106,7 @@
             </div>
             <div class="space-y-2">
                 <h2 class="text-amber-200/90 text-sm tracking-[0.3em] uppercase font-light">Zaman Kapsulu</h2>
-                <p class="text-stone-500 text-[11px] italic leading-relaxed">Sizin üçün 19-cu əsrin estetikası və ikiqat mexaniki şifrələrlə möhürlənmiş bir rəqəmsal artefakt göndərildi.</p>
+                <p class="text-stone-500 text-[11px] italic leading-relaxed">Sizin üçün 19-cu əsrin estetikası və dördqat mexaniki şifrələrlə möhürlənmiş bir rəqəmsal artefakt göndərildi.</p>
             </div>
             <button onclick="startMagicExperience()" class="w-full py-3 bg-gradient-to-r from-amber-950 to-amber-900 hover:from-amber-900 hover:to-amber-800 text-amber-100 font-semibold text-[11px] tracking-[0.25em] uppercase rounded-sm transition-all duration-300 shadow-lg border border-amber-500/20 active:scale-98 cursor-pointer">
                 Məktubu Qəbul Et
@@ -214,28 +214,50 @@
             }, 4500);
         }
 
-        // 🔐 İKİ MƏRHƏLƏLİ SİSTEMİN PARAMETRLƏRİ
+        // 🔐 DÖRD MƏRHƏLƏLİ SİSTEMİN PARAMETRLƏRİ
         let currentStage = 1; 
         const stageCombinations = {
-            1: [1, 4, 2, 3], // İlk mərhələ: 1-4-2-3
-            2: [4, 1, 3, 2]  // İkinci mərhələ: 4-1-3-2
+            1: [1, 4, 2, 3], // Mərhələ I
+            2: [4, 1, 3, 2], // Mərhələ II
+            3: [2, 3, 1, 4], // Mərhələ III
+            4: [3, 2, 4, 1]  // Mərhələ IV (Final)
         };
 
         // Məktubların məzmun bazası
         const lettersDatabase = {
             1: `<p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase">Hörmətli Jey Jey xanım,</p>
                 <p class="indent-8 italic text-stone-800 text-justify">
-                    İlk mexaniki kilidi uğurla açdınız! Lakin bu sandıq tək bir qatdan ibarət deyil. Viktoriya dövrünün sənətkarları əsl sirləri həmişə ikiqat divarların arxasında gizlədərdilər.
+                    İlk mexaniki kilidi uğurla açdınız! Lakin bu sandıq tək bir qatdan ibarət deyil. Viktoriya dövrünün sənətkarları əsl sirləri həmişə çoxqatlı mexanizmlərin arxasında gizlədərdilər.
                 </p>
                 <p class="indent-8 italic text-stone-800 text-justify">
-                    Həqiqi məktuba və əsas təbrikə çatmaq üçün qarşıda daha mürəkkəb bir təbəqə var. Əgər növbəti addıma hazırsınızsa, aşağıdakı mühürə toxunun.
+                    Sizi qarşıda daha bir neçə mürəkkəb təbəqə gözləyir. Əgər növbəti addıma hazırsınızsa, aşağıdakı mühürə toxunun.
                 </p>
                 <div class="pt-4 flex justify-center">
                     <button onclick="advanceToNextStage()" class="px-4 py-2 bg-amber-950 text-amber-100 text-xs uppercase tracking-widest rounded shadow-md hover:bg-amber-900 transition-colors cursor-pointer font-semibold">Növbəti Kilidə Keç</button>
                 </div>`,
             2: `<p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase">Hörmətli Jey Jey xanım,</p>
                 <p class="indent-8 italic text-stone-800 text-justify">
-                    Təbriklər! Görünür, bu mexaniki sandığın hər iki gizli ritmi və kombinasiya şifrəsi sizin diqqətinizdən qaçmağı bacarmadı. Bu rəqəmsal perqament sadəcə müasir dövrün o sıxıcı, emojili mesajlarından qaçmaq və ad gününü özəl etmək üçün hazırlandı.
+                    Heyrətamizdir! İkinci qat da sizin diqqətiniz və analitik zəkanız qarşısında tab gətirmədi. Lakin sandığın daxili çarxları yenidən fırlanır və daha dərində gizlənən üçüncü kodu tələb edir.
+                </p>
+                <p class="indent-8 italic text-stone-800 text-justify">
+                    Sona doğru yaxınlaşırıq, sirri tamamlamaq üçün kilidləri qırmağa davam edin.
+                </p>
+                <div class="pt-4 flex justify-center">
+                    <button onclick="advanceToNextStage()" class="px-4 py-2 bg-amber-950 text-amber-100 text-xs uppercase tracking-widest rounded shadow-md hover:bg-amber-900 transition-colors cursor-pointer font-semibold">Üçüncü Kilidə Keç</button>
+                </div>`,
+            3: `<p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase">Hörmətli Jey Jey xanım,</p>
+                <p class="indent-8 italic text-stone-800 text-justify">
+                    İnanılmaz bir səbir və qətiyyət! Üçüncü mexaniki maneəni də dəf etdiniz. Artıq sandığın nüvəsinə, yəni əsl perqamentin gizləndiyi sonuncu daxili hücrəyə çatmaq üzrəsiniz.
+                </p>
+                <p class="indent-8 italic text-stone-800 text-justify">
+                    Bu, sandığın son müdafiə xəttidir. Son kombinasiyanı tapın və bu rəqəmsal səyahəti tamamlayın.
+                </p>
+                <div class="pt-4 flex justify-center">
+                    <button onclick="advanceToNextStage()" class="px-4 py-2 bg-amber-950 text-amber-100 text-xs uppercase tracking-widest rounded shadow-md hover:bg-amber-900 transition-colors cursor-pointer font-semibold">Sonuncu Kilidi Aç</button>
+                </div>`,
+            4: `<p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase">Hörmətli Jey Jey xanım,</p>
+                <p class="indent-8 italic text-stone-800 text-justify">
+                    Təbriklər! Görünür, bu mürəkkəb mexaniki sandığın dörd gizli ritmi və kombinasiya şifrəsi sizin diqqətinizdən qaçmağı bacarmadı. Bu rəqəmsal perqament sadəcə müasir dövrün o sıxıcı, emojili mesajlarından qaçmaq və ad gününü özəl etmək üçün hazırlandı.
                 </p>
                 <p class="indent-8 italic text-stone-800 text-justify">
                     Bütün şifrələr qırıldığına və missiya tam olaraq tamamlandığına görə, artıq rahatlıqla 21-ci əsrə ad gününə geri dönə bilərsən...
@@ -312,11 +334,11 @@
                     
                     mainBox.style.opacity = '0';
                     mainBox.style.transform = 'scale(0.8) rotateX(90deg)';
-                    if (currentStage === 2) headerUI.style.opacity = '0'; // Finalda başlığı tam itir
+                    if (currentStage === 4) headerUI.style.opacity = '0'; // Son mərhələdə (4) başlığı tam itir
                     
                     setTimeout(() => {
                         mainBox.classList.add('hidden');
-                        if (currentStage === 2) headerUI.classList.add('hidden');
+                        if (currentStage === 4) headerUI.classList.add('hidden');
                         
                         // Müvafiq məktubun məzmununu yüklə
                         document.getElementById('letterContent').innerHTML = lettersDatabase[currentStage];
@@ -335,7 +357,7 @@
             }, 800);
         }
 
-        // 🔄 2-Cİ MƏRHƏLƏYƏ KEÇİD FUNKSİYASI
+        // 🔄 NÖVBƏTİ MƏRHƏLƏYƏ KEÇİD FUNKSİYASI (4 mərhələyə qədər dəstəkləyir)
         function advanceToNextStage() {
             // Məktubu bağla və gizlə
             document.getElementById('scrollBody').classList.remove('roll-open');
@@ -345,10 +367,18 @@
             setTimeout(() => {
                 scrollCont.classList.add('hidden');
                 
-                // Mərhələni 2-yə keçir və UI mətnlərini yenilə
-                currentStage = 2;
-                document.getElementById('headerTitle').innerText = "The Riddle Purse (Mərhələ II)";
-                document.getElementById('headerDesc').innerText = "İkinci və sonuncu gizli kombinasiyanı yığın...";
+                // Mərhələni bir pillə artır və UI mətnlərini yenilə
+                currentStage++;
+                
+                // Roma rəqəmləri ilə başlığı nizamla
+                const romanNumerals = { 2: "II", 3: "III", 4: "IV" };
+                document.getElementById('headerTitle').innerText = `The Riddle Purse (Mərhələ ${romanNumerals[currentStage]})`;
+                
+                if (currentStage === 4) {
+                    document.getElementById('headerDesc').innerText = "Sonuncu gizli kombinasiyanı yığın... Sirr açılır.";
+                } else {
+                    document.getElementById('headerDesc').innerText = "Növbəti gizli kombinasiyanı yığın...";
+                }
                 
                 // Ürək və kanat elementlərini sıfırla, sandığı yenidən göstər
                 document.getElementById('heartLeft').classList.remove('split-l');
