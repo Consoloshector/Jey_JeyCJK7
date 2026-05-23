@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Riddle Purse — Ultimate Edition</title>
+<title>The Riddle Purse — Victorian Grandmaster Edition</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-    --gold:#c59b47;
-    --paper:#efe0bc;
-    --dark:#090705;
-    --blood:#7d1020;
+    --gold:#c49b4d;
+    --paper:#efe2bf;
+    --dark:#080604;
+    --blood:#821628;
 }
 
 *{
@@ -30,81 +30,85 @@
 
 body{
     overflow:hidden;
-    background:
-    radial-gradient(circle at center,#221811 0%,#0b0806 100%);
     min-height:100vh;
+    background:
+    radial-gradient(circle at center,#211710 0%,#090604 100%);
     font-family:'Playfair Display',serif;
-    color:#fff;
+    color:white;
 }
 
-/* ========================= */
-/* CINEMATIC OVERLAY */
-/* ========================= */
+/* ===================================== */
+/* OLD FILM EFFECT */
+/* ===================================== */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
+    pointer-events:none;
     background:
     repeating-linear-gradient(
         to bottom,
-        rgba(255,255,255,.015),
-        rgba(255,255,255,.015) 1px,
+        rgba(255,255,255,.02),
+        rgba(255,255,255,.02) 1px,
         transparent 1px,
-        transparent 2px
+        transparent 3px
     );
-    pointer-events:none;
     mix-blend-mode:soft-light;
-    animation:flicker .2s infinite;
+    opacity:.45;
     z-index:9999;
+    animation:flicker .15s infinite;
 }
 
 @keyframes flicker{
-    0%{opacity:.8;}
-    50%{opacity:1;}
-    100%{opacity:.85;}
+    0%{opacity:.35;}
+    50%{opacity:.5;}
+    100%{opacity:.4;}
 }
 
-/* ========================= */
-/* DUST PARTICLES */
-/* ========================= */
+/* ===================================== */
+/* DUST */
+/* ===================================== */
 
-.particle{
+.dust{
     position:absolute;
     width:2px;
     height:2px;
-    background:rgba(255,220,120,.6);
+    background:rgba(255,223,150,.8);
     border-radius:50%;
-    animation:floatDust linear infinite;
+    pointer-events:none;
+    animation:float linear infinite;
 }
 
-@keyframes floatDust{
+@keyframes float{
     from{
         transform:translateY(100vh);
         opacity:0;
     }
+
     10%{
         opacity:1;
     }
+
     to{
-        transform:translateY(-100vh);
+        transform:translateY(-120vh);
         opacity:0;
     }
 }
 
-/* ========================= */
+/* ===================================== */
 /* INTRO */
-/* ========================= */
+/* ===================================== */
 
 .gateway{
     position:fixed;
     inset:0;
-    background:#050403;
+    background:#060403;
     z-index:500;
     display:flex;
     align-items:center;
     justify-content:center;
-    transition:1s;
+    transition:1.5s;
 }
 
 .gateway.hidden{
@@ -112,26 +116,26 @@ body::before{
     pointer-events:none;
 }
 
-.intro-box{
-    width:320px;
+.gateway-box{
+    width:350px;
     text-align:center;
-    padding:30px;
 }
 
-.symbol{
-    width:90px;
-    height:90px;
-    margin:auto;
+.clock{
+    width:110px;
+    height:110px;
     border-radius:50%;
-    border:1px solid rgba(197,155,71,.3);
+    margin:auto;
+    border:1px solid rgba(196,155,77,.3);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:28px;
+    font-size:40px;
     color:var(--gold);
-    margin-bottom:30px;
-    box-shadow:0 0 40px rgba(197,155,71,.2);
-    animation:pulse 2s infinite;
+    box-shadow:
+    0 0 50px rgba(196,155,77,.15),
+    inset 0 0 30px rgba(196,155,77,.08);
+    animation:pulse 3s infinite;
 }
 
 @keyframes pulse{
@@ -140,34 +144,53 @@ body::before{
     100%{transform:scale(1);}
 }
 
+.gateway h1{
+    margin-top:35px;
+    letter-spacing:8px;
+    font-size:20px;
+    color:#f2dfb7;
+    font-family:'Cinzel',serif;
+}
+
+.gateway p{
+    margin-top:20px;
+    line-height:2;
+    color:#7d776c;
+    font-size:13px;
+}
+
 .start-btn{
-    margin-top:30px;
+    margin-top:35px;
     width:100%;
-    padding:14px;
-    background:linear-gradient(to right,#2a180c,#4a2d17);
-    border:none;
-    color:#f5deb0;
-    letter-spacing:4px;
+    padding:15px;
+    background:
+    linear-gradient(
+        to right,
+        #2b180b,
+        #4d2d16
+    );
+    border:1px solid rgba(196,155,77,.2);
+    color:#f7e4b7;
+    letter-spacing:5px;
     cursor:pointer;
-    transition:.3s;
-    font-weight:bold;
+    transition:.4s;
 }
 
 .start-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 30px rgba(0,0,0,.5);
+    transform:translateY(-4px);
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
 }
 
-/* ========================= */
+/* ===================================== */
 /* HEADER */
-/* ========================= */
+/* ===================================== */
 
 .header{
     position:absolute;
-    top:30px;
+    top:35px;
     width:100%;
     text-align:center;
-    z-index:100;
+    z-index:50;
     opacity:0;
     transform:translateY(20px);
     transition:1s;
@@ -178,52 +201,53 @@ body::before{
     transform:translateY(0);
 }
 
-.header h1{
+.header h2{
     font-family:'Cinzel',serif;
+    letter-spacing:8px;
+    color:#f3dfb2;
     font-size:28px;
-    letter-spacing:6px;
-    color:#f7e8c7;
 }
 
 .header p{
-    color:#999;
     margin-top:10px;
+    color:#7e7465;
     font-size:12px;
-    letter-spacing:2px;
+    letter-spacing:3px;
 }
 
-/* ========================= */
-/* MAIN WRAPPER */
-/* ========================= */
+/* ===================================== */
+/* MAIN */
+/* ===================================== */
 
-.wrapper{
+.main{
     width:100%;
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    perspective:1800px;
+    perspective:2200px;
 }
 
-/* ========================= */
+/* ===================================== */
 /* PURSE */
-/* ========================= */
+/* ===================================== */
 
 .purse{
+    width:380px;
+    height:380px;
     position:relative;
-    width:360px;
-    height:360px;
+    transform-style:preserve-3d;
     opacity:0;
-    transform:scale(.5) rotateX(40deg);
-    transition:1.2s;
+    transform:scale(.5) rotateX(50deg);
+    transition:1.5s;
 }
 
 .purse.show{
     opacity:1;
-    transform:scale(1) rotateX(0deg);
+    transform:scale(1) rotateX(0);
 }
 
-.center{
+.core{
     position:absolute;
     inset:0;
     display:flex;
@@ -233,73 +257,83 @@ body::before{
 }
 
 .heart{
+    width:150px;
+    height:150px;
     position:relative;
-    width:140px;
-    height:140px;
 }
 
-.leftHeart,
-.rightHeart{
+.left-heart,
+.right-heart{
     position:absolute;
     width:50%;
     height:100%;
     background:var(--blood);
-    transition:1.8s cubic-bezier(.76,0,.24,1);
+    transition:2s cubic-bezier(.76,0,.24,1);
+    box-shadow:inset 0 0 20px rgba(0,0,0,.4);
 }
 
-.leftHeart{
+.left-heart{
     left:0;
     clip-path:path('M 64,35 C 64,12 40,0 18,0 C -4,0 -4,30 18,52 C 35,70 53,95 64,115 L 64,115 Z');
 }
 
-.rightHeart{
+.right-heart{
     right:0;
     clip-path:path('M 0,35 C 0,12 24,0 46,0 C 68,0 68,30 46,52 C 29,70 11,95 0,115 L 0,115 Z');
 }
 
-.leftHeart.split{
-    transform:translateX(-220%) rotate(-35deg) scale(.7);
+.left-heart.split{
+    transform:
+    translateX(-250%)
+    rotate(-40deg)
+    scale(.6);
     opacity:0;
 }
 
-.rightHeart.split{
-    transform:translateX(220%) rotate(35deg) scale(.7);
+.right-heart.split{
+    transform:
+    translateX(250%)
+    rotate(40deg)
+    scale(.6);
     opacity:0;
 }
 
-.heartText{
+.heart-text{
     position:absolute;
     inset:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#f3d5d5;
-    letter-spacing:4px;
+    letter-spacing:5px;
+    color:#f5dada;
     font-size:11px;
 }
 
-/* ========================= */
+/* ===================================== */
 /* FLAPS */
-/* ========================= */
+/* ===================================== */
 
 .flap{
     position:absolute;
     inset:0;
     cursor:pointer;
     transition:
-    transform 1.4s cubic-bezier(.25,1,.5,1),
-    opacity 1.2s,
-    background .3s;
+    transform 1.6s cubic-bezier(.25,1,.5,1),
+    opacity 1.3s,
+    background .4s;
     backface-visibility:hidden;
     will-change:transform;
 }
 
-.flap:hover{
-    filter:brightness(1.05);
+.flap::after{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border:1px dashed rgba(91,58,19,.2);
 }
 
 .top{
-    background:#e7d7b1;
+    background:#e5d4ab;
     clip-path:polygon(0 0,100% 0,50% 50%);
     transform-origin:top;
 }
@@ -311,7 +345,7 @@ body::before{
 }
 
 .bottom{
-    background:#e7d7b1;
+    background:#e5d4ab;
     clip-path:polygon(0 100%,100% 100%,50% 50%);
     transform-origin:bottom;
 }
@@ -322,33 +356,33 @@ body::before{
     transform-origin:left;
 }
 
-.flap.done.top{
+.top.done{
     transform:rotateX(-170deg);
     opacity:0;
 }
 
-.flap.done.right{
+.right.done{
     transform:rotateY(170deg);
     opacity:0;
 }
 
-.flap.done.bottom{
+.bottom.done{
     transform:rotateX(170deg);
     opacity:0;
 }
 
-.flap.done.left{
+.left.done{
     transform:rotateY(-170deg);
     opacity:0;
 }
 
 .flap.active{
-    background:#f7e48f;
+    background:#f7e38f;
 }
 
 .flap.error{
     animation:shake .4s;
-    background:#ef4444!important;
+    background:#b72828!important;
 }
 
 @keyframes shake{
@@ -358,32 +392,30 @@ body::before{
     75%{transform:translateX(-8px);}
 }
 
-/* ========================= */
+/* ===================================== */
 /* LETTER */
-/* ========================= */
+/* ===================================== */
 
-.letterWrap{
-    width:420px;
+.letter-wrap{
+    width:450px;
     max-width:95%;
     opacity:0;
     transform:translateY(50px) scale(.9);
-    transition:1.5s;
+    transition:1.4s;
     display:none;
 }
 
-.letterWrap.show{
+.letter-wrap.show{
     opacity:1;
     transform:translateY(0) scale(1);
 }
 
 .scroll{
     background:var(--paper);
-    color:#2a1b10;
-    padding:40px;
-    line-height:2;
-    box-shadow:0 30px 80px rgba(0,0,0,.7);
-    border:2px solid rgba(0,0,0,.1);
+    color:#2d1a0d;
+    padding:50px;
     position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,.7);
 }
 
 .scroll::before,
@@ -396,37 +428,49 @@ body::before{
     border-left:1px dashed rgba(0,0,0,.1);
 }
 
-.scroll::before{left:10px;}
-.scroll::after{right:10px;}
+.scroll::before{left:12px;}
+.scroll::after{right:12px;}
 
-.typewriter{
-    white-space:pre-wrap;
+.letter-title{
+    font-family:'Cinzel',serif;
+    margin-bottom:25px;
+    letter-spacing:3px;
+    color:#6a4821;
+}
+
+.letter{
+    line-height:2.1;
     font-style:italic;
+    white-space:pre-wrap;
 }
 
-.nextBtn{
-    margin-top:30px;
+.riddle{
+    margin-top:35px;
+    padding:20px;
+    border:1px dashed rgba(0,0,0,.2);
+    background:rgba(0,0,0,.03);
+    font-size:14px;
+}
+
+.next-btn{
     width:100%;
-    padding:14px;
+    padding:15px;
+    margin-top:30px;
+    background:#2b180b;
+    color:#f5ddb1;
     border:none;
-    background:#2c1809;
-    color:#f3ddb0;
-    letter-spacing:4px;
     cursor:pointer;
+    letter-spacing:4px;
 }
-
-/* ========================= */
-/* MOBILE */
-/* ========================= */
 
 @media(max-width:500px){
 
     .purse{
-        width:300px;
-        height:300px;
+        width:310px;
+        height:310px;
     }
 
-    .header h1{
+    .header h2{
         font-size:20px;
     }
 
@@ -438,7 +482,7 @@ body::before{
 <body>
 
 <!-- DUST -->
-<div id="particles"></div>
+<div id="dustContainer"></div>
 
 <!-- AUDIO -->
 <audio id="bgMusic" loop>
@@ -448,16 +492,15 @@ body::before{
 <!-- INTRO -->
 <div class="gateway" id="gateway">
 
-    <div class="intro-box">
+    <div class="gateway-box">
 
-        <div class="symbol">
-            ⏳
-        </div>
+        <div class="clock">⏳</div>
 
-        <h2 style="letter-spacing:6px;font-family:Cinzel;">ZAMAN KAPSULU</h2>
+        <h1>ZAMAN KAPSULU</h1>
 
-        <p style="margin-top:20px;color:#777;font-size:13px;line-height:1.8;">
-            Viktoriya dövründən ilham alınaraq hazırlanmış ikiqat mexaniki şifrəli rəqəmsal artefakt.
+        <p>
+            19-cu əsrin estetikası ilə hazırlanmış
+            ikiqat mexaniki şifrəli rəqəmsal artefakt.
         </p>
 
         <button class="start-btn" onclick="startExperience()">
@@ -471,31 +514,31 @@ body::before{
 <!-- HEADER -->
 <div class="header" id="header">
 
-    <h1 id="stageTitle">
+    <h2 id="stageTitle">
         THE RIDDLE PURSE
-    </h1>
+    </h2>
 
     <p id="stageDesc">
-        İlk gizli kombinasiyanı tapın.
+        İlk kombinasiyanı düzgün yığın.
     </p>
 
 </div>
 
 <!-- MAIN -->
-<div class="wrapper">
+<div class="main">
 
     <!-- PURSE -->
     <div class="purse" id="purse">
 
-        <div class="center">
+        <div class="core">
 
             <div class="heart">
 
-                <div class="leftHeart" id="leftHeart"></div>
+                <div class="left-heart" id="leftHeart"></div>
 
-                <div class="rightHeart" id="rightHeart"></div>
+                <div class="right-heart" id="rightHeart"></div>
 
-                <div class="heartText">
+                <div class="heart-text">
                     JEY JEY
                 </div>
 
@@ -511,13 +554,60 @@ body::before{
     </div>
 
     <!-- LETTER -->
-    <div class="letterWrap" id="letterWrap">
+    <div class="letter-wrap" id="letterWrap">
 
         <div class="scroll">
 
-            <div class="typewriter" id="letter"></div>
+            <div class="letter-title">
+                Hörmətli Jey Jey xanım,
+            </div>
 
-            <button class="nextBtn" id="nextBtn" style="display:none;">
+            <div class="letter" id="letter"></div>
+
+            <!-- TAPMACA -->
+            <div class="riddle" id="riddleBox" style="display:none;">
+
+                <strong>Tapmaca:</strong>
+
+                <br><br>
+
+                “Mən danışmadan cavab verirəm.
+                Mənim səsim yoxdur,
+                amma hər kəs məni eşidir.
+                Mən kiməm?”
+
+                <br><br>
+
+                <input
+                id="riddleInput"
+                placeholder="Cavabı yaz..."
+                style="
+                width:100%;
+                padding:12px;
+                border:none;
+                outline:none;
+                background:#fff7e7;
+                margin-top:10px;
+                ">
+
+                <button
+                onclick="checkRiddle()"
+                style="
+                margin-top:15px;
+                width:100%;
+                padding:12px;
+                border:none;
+                background:#2c1809;
+                color:#f5ddb1;
+                cursor:pointer;
+                letter-spacing:3px;
+                ">
+                    TAPMACANI AÇ
+                </button>
+
+            </div>
+
+            <button class="next-btn" id="nextBtn" style="display:none;">
                 NÖVBƏTİ MƏRHƏLƏ
             </button>
 
@@ -529,50 +619,40 @@ body::before{
 
 <script>
 
-/* ========================= */
-/* HELPERS */
-/* ========================= */
+const $ = id => document.getElementById(id);
 
-const $ = e => document.getElementById(e);
+/* ===================================== */
+/* DUST */
+/* ===================================== */
 
-const vibrate = ms => {
-    if(navigator.vibrate){
-        navigator.vibrate(ms);
-    }
-};
+for(let i=0;i<70;i++){
 
-/* ========================= */
-/* PARTICLES */
-/* ========================= */
+    const d = document.createElement('div');
 
-for(let i=0;i<50;i++){
+    d.className='dust';
 
-    const p = document.createElement('div');
+    d.style.left=Math.random()*100+'vw';
 
-    p.className='particle';
-
-    p.style.left=Math.random()*100+'vw';
-
-    p.style.animationDuration=
+    d.style.animationDuration=
     10 + Math.random()*20 + 's';
 
-    p.style.animationDelay=
+    d.style.animationDelay=
     Math.random()*10 + 's';
 
-    p.style.opacity=Math.random();
+    $('dustContainer').appendChild(d);
 
-    $('particles').appendChild(p);
 }
 
-/* ========================= */
+/* ===================================== */
 /* AUDIO */
-/* ========================= */
+/* ===================================== */
 
 const music = $('bgMusic');
 
 function fadeAudio(target,duration=2000){
 
-    let step = (target - music.volume)/(duration/50);
+    let step =
+    (target - music.volume)/(duration/50);
 
     const interval = setInterval(()=>{
 
@@ -587,38 +667,41 @@ function fadeAudio(target,duration=2000){
         }
 
     },50);
+
 }
 
-/* ========================= */
+/* ===================================== */
 /* STAGES */
-/* ========================= */
+/* ===================================== */
 
 const stages = [
 
 {
-    combo:[1,4,2,3],
+combo:[1,4,2,3],
 
-    text:
-`Hörmətli Jey Jey xanım,
+text:
+`İlk mexaniki kilid uğurla açıldı.
 
-İlk mexaniki kilid uğurla açıldı.
+Lakin əsas sirr hələ qarşıdadır.
 
-Lakin bu artefakt yalnız bir təbəqədən ibarət deyil. Həqiqi mesaj daha dərin qatlarda gizlədilib.
+Köhnə dövr sənətkarları həqiqi məktubları
+heç vaxt ilk qatda gizlətmirdilər.
 
-Əgər davam etməyə hazırsınızsa, növbəti mərhələyə keçin.`
+Növbəti mərhələyə keçmək üçün əvvəlcə
+tapmacanı həll etməlisiniz.`
 },
 
 {
-    combo:[4,1,3,2],
+combo:[4,1,3,2],
 
-    text:
+text:
 `Təbriklər.
 
-Görünür bütün mexaniki şifrələr uğurla qırıldı.
+Bütün şifrələr və mexaniki kilidlər
+uğurla qırıldı.
 
-Bu rəqəmsal məktub sadəcə adi bir mesaj deyil — vaxtdan kənar kiçik bir təcrübə idi.
-
-Bütün mərhələləri tamamladığınız üçün təşəkkürlər.
+Bu məktub sadəcə mesaj deyil,
+vaxtdan kənar kiçik bir təcrübə idi.
 
 Missiya tamamlandı.`
 }
@@ -629,15 +712,15 @@ let stage = 0;
 let progress = [];
 let locked = false;
 
-/* ========================= */
+/* ===================================== */
 /* START */
-/* ========================= */
+/* ===================================== */
 
 function startExperience(){
 
     $('gateway').classList.add('hidden');
 
-    music.volume = 0;
+    music.volume=0;
 
     music.play().catch(()=>{});
 
@@ -653,9 +736,9 @@ function startExperience(){
 
 }
 
-/* ========================= */
-/* FLAPS */
-/* ========================= */
+/* ===================================== */
+/* INPUT */
+/* ===================================== */
 
 document.querySelectorAll('.flap').forEach(el=>{
 
@@ -667,36 +750,30 @@ document.querySelectorAll('.flap').forEach(el=>{
 
         const id = Number(el.dataset.id);
 
-        handleInput(id,el);
+        input(id,el);
 
     });
 
 });
 
-/* ========================= */
-/* INPUT */
-/* ========================= */
-
-function handleInput(id,element){
+function input(id,element){
 
     element.classList.add('active');
 
     progress.push(id);
 
-    vibrate(20);
+    const combo = stages[stage].combo;
 
-    const needed = stages[stage].combo;
+    const index = progress.length - 1;
 
-    const currentIndex = progress.length - 1;
-
-    if(progress[currentIndex] !== needed[currentIndex]){
+    if(progress[index] !== combo[index]){
 
         errorSequence();
-
         return;
+
     }
 
-    if(progress.length === needed.length){
+    if(progress.length === combo.length){
 
         successSequence();
 
@@ -704,20 +781,19 @@ function handleInput(id,element){
 
 }
 
-/* ========================= */
+/* ===================================== */
 /* ERROR */
-/* ========================= */
+/* ===================================== */
 
 function errorSequence(){
 
-    locked = true;
+    locked=true;
 
-    vibrate([100,50,100]);
+    navigator.vibrate?.([100,50,100]);
 
     document.querySelectorAll('.flap').forEach(el=>{
 
         el.classList.add('error');
-
         el.classList.remove('active');
 
     });
@@ -738,9 +814,9 @@ function errorSequence(){
 
 }
 
-/* ========================= */
+/* ===================================== */
 /* SUCCESS */
-/* ========================= */
+/* ===================================== */
 
 function successSequence(){
 
@@ -755,18 +831,16 @@ function successSequence(){
     setTimeout(()=>{
 
         $('leftHeart').classList.add('split');
-
         $('rightHeart').classList.add('split');
 
-    },1200);
+    },1000);
 
     setTimeout(()=>{
 
         $('purse').style.opacity='0';
-
         $('purse').style.transform='scale(.7) rotateX(80deg)';
 
-    },2500);
+    },2400);
 
     setTimeout(()=>{
 
@@ -774,13 +848,13 @@ function successSequence(){
 
         showLetter();
 
-    },3500);
+    },3300);
 
 }
 
-/* ========================= */
+/* ===================================== */
 /* LETTER */
-/* ========================= */
+/* ===================================== */
 
 function showLetter(){
 
@@ -799,10 +873,6 @@ function showLetter(){
 
 }
 
-/* ========================= */
-/* TYPEWRITER */
-/* ========================= */
-
 function typeWriter(el,text){
 
     el.innerHTML='';
@@ -815,13 +885,13 @@ function typeWriter(el,text){
 
         i++;
 
-        if(i>=text.length){
+        if(i >= text.length){
 
             clearInterval(interval);
 
-            if(stage === 0){
+            if(stage===0){
 
-                $('nextBtn').style.display='block';
+                $('riddleBox').style.display='block';
 
             }
 
@@ -831,9 +901,50 @@ function typeWriter(el,text){
 
 }
 
-/* ========================= */
-/* NEXT STAGE */
-/* ========================= */
+/* ===================================== */
+/* RIDDLE */
+/* ===================================== */
+
+function checkRiddle(){
+
+    const val =
+    $('riddleInput')
+    .value
+    .toLowerCase()
+    .trim();
+
+    if(
+        val === 'echo' ||
+        val === 'əks-səda' ||
+        val === 'eks seda'
+    ){
+
+        $('nextBtn').style.display='block';
+
+        $('riddleBox').innerHTML=
+        `
+        <div style="color:#2f5f1e;font-weight:bold;">
+        Tapmaca uğurla həll edildi.
+        </div>
+        `;
+
+    }else{
+
+        $('riddleInput').style.background='#fca5a5';
+
+        setTimeout(()=>{
+
+            $('riddleInput').style.background='#fff7e7';
+
+        },500);
+
+    }
+
+}
+
+/* ===================================== */
+/* NEXT */
+/* ===================================== */
 
 $('nextBtn').onclick = ()=>{
 
@@ -845,7 +956,7 @@ $('nextBtn').onclick = ()=>{
 
         $('letterWrap').style.display='none';
 
-        $('letter').innerHTML='';
+        $('riddleBox').style.display='none';
 
         nextStage();
 
@@ -861,9 +972,11 @@ function nextStage(){
 
     locked=false;
 
-    $('stageTitle').innerHTML='THE RIDDLE PURSE II';
+    $('stageTitle').innerHTML=
+    'THE RIDDLE PURSE II';
 
-    $('stageDesc').innerHTML='Son gizli kombinasiyanı tapın.';
+    $('stageDesc').innerHTML=
+    'Son kombinasiyanı düzgün yığın.';
 
     document.querySelectorAll('.flap').forEach(el=>{
 
@@ -872,7 +985,6 @@ function nextStage(){
     });
 
     $('leftHeart').classList.remove('split');
-
     $('rightHeart').classList.remove('split');
 
     $('purse').style.display='block';
@@ -881,7 +993,8 @@ function nextStage(){
 
         $('purse').style.opacity='1';
 
-        $('purse').style.transform='scale(1) rotateX(0deg)';
+        $('purse').style.transform=
+        'scale(1) rotateX(0deg)';
 
     },50);
 
