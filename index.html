@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Riddle Purse - Master 4-Stage Edition</title>
+    <title>The Riddle Purse - Fireworks Grand Finale</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
         
         .parchment {
             background-color: #f5ebd0;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23e6d5b0' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23e6d5b0' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3Cpath%3E%3C/svg%3E");
         }
         
         .purse-container { perspective: 1200px; }
@@ -93,11 +93,29 @@
         .active-selected {
             background-color: #fef08a !important;
         }
+
+        /* 🎆 ATƏŞFƏŞANLIQ (FIREWORKS) EFFEKTİ */
+        .firework-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: explode 1.5s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0.3); opacity: 0; }
+        }
     </style>
 </head>
-<body class="text-stone-800 min-h-screen flex flex-col items-center justify-center p-4 md:p-6 selection:bg-amber-900 selection:text-amber-100 overflow-hidden">
+<body class="text-stone-800 min-h-screen flex flex-col items-center justify-center p-4 md:p-6 selection:bg-amber-900 selection:text-amber-100 overflow-hidden relative">
 
     <audio id="bgMusic" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+    <!-- Atəşfəşanlıq Konteyneri -->
+    <div id="fireworksContainer" class="absolute inset-0 pointer-events-none z-50 overflow-hidden"></div>
 
     <div id="gatewayOverlay" class="absolute inset-0 bg-[#0c0907] z-90 flex flex-col items-center justify-center p-6 text-center transition-all duration-1000">
         <div class="max-w-xs space-y-6">
@@ -255,15 +273,16 @@
                 <div class="pt-4 flex justify-center">
                     <button onclick="advanceToNextStage()" class="px-4 py-2 bg-amber-950 text-amber-100 text-xs uppercase tracking-widest rounded shadow-md hover:bg-amber-900 transition-colors cursor-pointer font-semibold">Sonuncu Kilidi Aç</button>
                 </div>`,
-            4: `<p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase">Hörmətli Jey Jey xanım,</p>
-                <p class="indent-8 italic text-stone-800 text-justify">
-                    Təbriklər! Görünür, bu mürəkkəb mexaniki sandığın dörd gizli ritmi və kombinasiya şifrəsi sizin diqqətinizdən qaçmağı bacarmadı. Bu rəqəmsal perqament sadəcə müasir dövrün o sıxıcı, emojili mesajlarından qaçmaq və ad gününü özəl etmək üçün hazırlandı.
+            4: `<div class="text-center animate-bounce text-2xl mb-2">🎆 🎂 🎆</div>
+                <p class="font-bold text-amber-950 border-b border-amber-950/10 pb-2 tracking-wide text-xs uppercase text-center">Möhtəşəm Təbriklər, Jey Jey xanım!</p>
+                <p class="indent-8 italic text-stone-800 text-justify font-normal">
+                    Bütün mexaniki sədləri darmadağın etdiniz və dördqatlı sirri tam şəkildə aydınlatdınız! Bu rəqəmsal perqament, müasir dövrün o cansıxıcı, hazır və emojili təbriklərindən tamamilə fərqli, sizə layiq unikal bir xatirə yaratmaq üçün quruldu.
                 </p>
-                <p class="indent-8 italic text-stone-800 text-justify">
-                    Bütün şifrələr qırıldığına və missiya tam olaraq tamamlandığına görə, artıq rahatlıqla 21-ci əsrə ad gününə geri dönə bilərsən...
+                <p class="indent-8 italic text-stone-800 text-justify font-normal text-amber-900">
+                    Bütün şifrələr qırıldı, sandıq fəth olundu! Ad gününüz mübarək olsun! İndi bütün bu vizual atəşfəşanlığın fonunda rahatlıqla 21-ci əsrə geri dönə bilərsiniz...
                 </p>
                 <div class="pt-6 text-right font-semibold text-amber-950 italic text-xs tracking-[0.2em]">
-                    Hörmətlə, <br>
+                    Dərin hörmətlə, <br>
                     <span class="text-amber-800 not-italic text-sm font-light mt-1 block">Mən.</span>
                 </div>`
         };
@@ -283,13 +302,11 @@
             const currentIndex = userCurrentProgress.length - 1;
             const currentRequiredCombo = stageCombinations[currentStage];
             
-            // Sıranı cari mərhələnin kombinasiyasına görə yoxlayırıq
             if (userCurrentProgress[currentIndex] !== currentRequiredCombo[currentIndex]) {
                 triggerResetSequence();
                 return;
             }
 
-            // Mərhələ kombinasiyası tamamlandıqda
             if (userCurrentProgress.length === currentRequiredCombo.length) {
                 isSystemProcessing = true;
                 executeFinalUnfolding();
@@ -315,8 +332,43 @@
             }, 400);
         }
 
+        /* 🎆 ATƏŞFƏŞANLIQ GENERATORU */
+        function launchFireworks() {
+            const container = document.getElementById('fireworksContainer');
+            const colors = ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6', '#ffffff'];
+            
+            // 5 saniyə boyunca dalğa-dalğa partlayışlar yaradır
+            let duration = 5000;
+            let interval = setInterval(() => {
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * (window.innerHeight * 0.6); // Ekranın yuxarı hissəsində
+                
+                // Hər partlayışda 30 hissəcik
+                for (let i = 0; i < 30; i++) {
+                    const p = document.createElement('div');
+                    p.classList.add('firework-particle');
+                    p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    p.style.left = startX + 'px';
+                    p.style.top = startY + 'px';
+                    
+                    // Təsadüfi bucaq və məsafə (partlayış effekti üçün)
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 50 + Math.random() * 120;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    p.style.setProperty('--tx', `${tx}px`);
+                    p.style.setProperty('--ty', `${ty}px`);
+                    
+                    container.appendChild(p);
+                    setTimeout(() => p.remove(), 1500);
+                }
+            }, 300);
+
+            setTimeout(() => clearInterval(interval), duration);
+        }
+
         function executeFinalUnfolding() {
-            // Kanatları geriyə qatla
             for (let i = 1; i <= 4; i++) {
                 const el = document.getElementById('fElement' + i);
                 el.classList.remove('active-selected');
@@ -334,13 +386,12 @@
                     
                     mainBox.style.opacity = '0';
                     mainBox.style.transform = 'scale(0.8) rotateX(90deg)';
-                    if (currentStage === 4) headerUI.style.opacity = '0'; // Son mərhələdə (4) başlığı tam itir
+                    if (currentStage === 4) headerUI.style.opacity = '0'; 
                     
                     setTimeout(() => {
                         mainBox.classList.add('hidden');
                         if (currentStage === 4) headerUI.classList.add('hidden');
                         
-                        // Müvafiq məktubun məzmununu yüklə
                         document.getElementById('letterContent').innerHTML = lettersDatabase[currentStage];
                         
                         const scrollCont = document.getElementById('finalScrollContainer');
@@ -350,6 +401,11 @@
                             scrollCont.classList.add('show');
                             setTimeout(() => {
                                 document.getElementById('scrollBody').classList.add('roll-open');
+                                
+                                // 🎆 Əgər final (4-cü) mərhələdirsə, atəşfəşanlığı işə sal!
+                                if (currentStage === 4) {
+                                    setTimeout(launchFireworks, 500);
+                                }
                             }, 400);
                         }, 50);
                     }, 1000);
@@ -357,30 +413,24 @@
             }, 800);
         }
 
-        // 🔄 NÖVBƏTİ MƏRHƏLƏYƏ KEÇİD FUNKSİYASI (4 mərhələyə qədər dəstəkləyir)
         function advanceToNextStage() {
-            // Məktubu bağla və gizlə
             document.getElementById('scrollBody').classList.remove('roll-open');
             const scrollCont = document.getElementById('finalScrollContainer');
             scrollCont.classList.remove('show');
             
             setTimeout(() => {
                 scrollCont.classList.add('hidden');
-                
-                // Mərhələni bir pillə artır və UI mətnlərini yenilə
                 currentStage++;
                 
-                // Roma rəqəmləri ilə başlığı nizamla
                 const romanNumerals = { 2: "II", 3: "III", 4: "IV" };
                 document.getElementById('headerTitle').innerText = `The Riddle Purse (Mərhələ ${romanNumerals[currentStage]})`;
                 
                 if (currentStage === 4) {
-                    document.getElementById('headerDesc').innerText = "Sonuncu gizli kombinasiyanı yığın... Sirr açılır.";
+                    document.getElementById('headerDesc').innerText = "Sonuncu gizli kombinasiyanı yığın... Böyük final!";
                 } else {
                     document.getElementById('headerDesc').innerText = "Növbəti gizli kombinasiyanı yığın...";
                 }
                 
-                // Ürək və kanat elementlərini sıfırla, sandığı yenidən göstər
                 document.getElementById('heartLeft').classList.remove('split-l');
                 document.getElementById('heartRight').classList.remove('split-r');
                 document.getElementById('heartCenterLabel').style.opacity = '1';
